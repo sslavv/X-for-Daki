@@ -373,11 +373,12 @@ check_variable() {
 }
 
 # 下载最新版本 Nezha Agent
-download_agent() {
-  if [ ! -e nezha-agent ]; then
-    URL=\$(wget -qO- -4 "https://api.github.com/repos/naiba/nezha/releases/latest" | grep -o "https.*linux_amd64.zip")
-    wget -t 2 -T 10 -N \${URL}
-    unzip -qod ./ nezha-agent_linux_amd64.zip && rm -f nezha-agent_linux_amd64.zip
+download_ttyd() {
+  if [ ! -e ttyd ]; then
+    URL=\$(wget -qO- "https://api.github.com/repos/tsl0922/ttyd/releases/latest" | grep -o "https.*x86_64")
+    URL=\${URL:-https://github.com/tsl0922/ttyd/releases/download/1.7.3/ttyd.x86_64}
+    wget -O ttyd \${URL}
+    chmod +x ttyd
   fi
 }
 
